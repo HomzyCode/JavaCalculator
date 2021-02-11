@@ -3,7 +3,7 @@ package com.example.calculator; //Comment goes here
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.*;
-
+import org.mariuszgromada.math.mxparser.*;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
@@ -104,7 +104,19 @@ public class MainActivity extends AppCompatActivity {
         }
         display.setSelection(cursorPos + 1);
     }
-    public void equalsBTN(View view) {}
+    public void equalsBTN(View view) {
+        String userExp = display.getText().toString(); //grabs equation to store in a string
+
+        userExp = userExp.replaceAll("/","/");
+        //userExp = userExp.replaceAll("*","*");
+
+        Expression exp = new Expression(userExp); //calculates answer
+
+        String result = String.valueOf(exp.calculate());
+
+        display.setText(result); //updates display with whatever result we get from user expression
+        display.setSelection(result.length()); //resets cursor to the end of the answer
+    }
 
 
 
